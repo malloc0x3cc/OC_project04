@@ -1,30 +1,40 @@
 class Player():
-	def __init__(self, name) -> None:
-		self.name = name
+	instances = []
+	def __init__(self, firstname="n/a", lastname="n/a", gender="n/a", rank="n/a") -> None:
+		self.firstname = firstname
+		self.lastname = lastname
+		self.gender = gender
+		self.rank = rank
+		self.__class__.instances.append(self)
 
-	def getName(self):
-		return self.name
+	def updateRank(self):
+		pass
 
 class Tournament():
-	def __init__(self, player_list) -> None:
-		self.player_list = player_list
+	def __init__(self, name="n/a", location="n/a", start_date="n/a", end_date="n/a") -> None:
+		self.name = name
+		self.start_date = start_date
+		self.end_date = end_date
 
-	def listPlayers(self):
-		for player in self.player_list:
-			print(player.name)
+	def playerList(self):
+		for p in Player.instances:
+			print(vars(p))
 
-class Match(Tournament):
-	def __init__(self) -> None:
-		pass
+class Match():
+	def __init__(self, name="n/a", start_date="n/a", end_date="n/a") -> None:
+		self.name = name
+		self.start_date = start_date
+		self.end_date = end_date
 
-class Round(Match):
-	def __init__(self) -> None:
-		pass
+class Round():
+	def __init__(self, number="n/a", start_date="n/a", end_date="n/a") -> None:
+		self.name = name
+		self.start_date = start_date
+		self.end_date = end_date
 
 if __name__ == "__main__":
-	test = []
-	test_tournament = Tournament(test)
-	test.append(Player(name="Mac"))
-	test.append(Player(name="Rose"))
+	p1 = Player(firstname="John", lastname="Doe", gender="Male")
+	p2 = Player(firstname="Jane", lastname="Doe", gender="Female")
+	t = Tournament()
+	t.playerList()
 
-	test_tournament.listPlayers()
