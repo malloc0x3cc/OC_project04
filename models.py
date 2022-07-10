@@ -1,40 +1,35 @@
 class Player():
 	instances = []
-	def __init__(self, firstname="n/a", lastname="n/a", gender="n/a", rank="n/a") -> None:
+	def __init__(self, firstname, lastname, birthdate, gender, rank) -> None:
 		self.firstname = firstname
 		self.lastname = lastname
+		self.birthdate = birthdate
 		self.gender = gender
 		self.rank = rank
 		self.__class__.instances.append(self)
 
-	def updateRank(self):
-		pass
+	def updateRank(self, new_rank):
+		self.rank = new_rank
 
 class Tournament():
-	def __init__(self, name="n/a", location="n/a", start_date="n/a", end_date="n/a") -> None:
+	def __init__(self, name, location, description, time_control, date, nb_of_rounds) -> None:
 		self.name = name
-		self.start_date = start_date
-		self.end_date = end_date
+		self.location = location
+		self.description = description
+		self.time_control = time_control
+		self.date = date
+		self.nb_of_rounds = nb_of_rounds
+		self.player_list = []
+		self.round_list = []
 
-	def playerList(self):
-		for p in Player.instances:
-			print(vars(p))
+	def addPlayersToList(self, player):
+		self.player_list.append(player)
 
-class Match():
-	def __init__(self, name="n/a", start_date="n/a", end_date="n/a") -> None:
-		self.name = name
-		self.start_date = start_date
-		self.end_date = end_date
+	def addRoundToList(self, round):
+		self.round_list.append(round)
 
 class Round():
-	def __init__(self, number="n/a", start_date="n/a", end_date="n/a") -> None:
+	def __init__(self, name, start_date, end_date) -> None:
 		self.name = name
 		self.start_date = start_date
 		self.end_date = end_date
-
-if __name__ == "__main__":
-	p1 = Player(firstname="John", lastname="Doe", gender="Male")
-	p2 = Player(firstname="Jane", lastname="Doe", gender="Female")
-	t = Tournament()
-	t.playerList()
-
