@@ -1,4 +1,4 @@
-env/
+.env/
 *.docx
 *.pyc
 *.pdf
