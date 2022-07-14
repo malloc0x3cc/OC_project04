@@ -1,3 +1,6 @@
+from tinydb import TinyDB
+
+
 class Player():
 	instances = []
 	def __init__(self, firstname, lastname, birthdate, gender, rank) -> None:
