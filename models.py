@@ -1,5 +1,7 @@
-from tinydb import TinyDB
+from tinydb import TinyDB, Query
 
+
+db = TinyDB("db.json")
 
 class Player():
 	instances = []
@@ -25,8 +27,8 @@ class Tournament():
 		self.player_list = []
 		self.round_list = []
 
-	def addPlayersToList(self, player):
-		self.player_list.append(player)
+	def addPlayersToList(self, player1, player2):
+		self.player_list = [player1, player2]
 
 	def addRoundToList(self, round):
 		self.round_list.append(round)

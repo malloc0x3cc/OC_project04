@@ -8,3 +8,5 @@ if __name__ == "__main__":
 	p2 = Player(firstname="Jane", lastname="Doe", gender="Female", birthdate=datetime.date(2002, 5, 9), rank=2)
 	t = Tournament(name="Unreal Tournament", location="Cupertino", description="A test tournament", time_control=0, date=datetime.date(2012, 12, 21), nb_of_rounds=4)
 	printPlayerList()
+	t.addPlayersToList(p1, p2)
+	print(t.player_list)

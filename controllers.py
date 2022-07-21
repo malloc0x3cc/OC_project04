@@ -1,7 +1,8 @@
 from datetime import datetime
-from ..models import Round
+from models import Round
 
 
+# Rounds
 def createRound(nb):
 	name = f"Round {nb + 1}"
 	start_date = datetime.now()
