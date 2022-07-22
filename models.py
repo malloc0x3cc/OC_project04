@@ -7,16 +7,16 @@ db = TinyDB("db.json")
 
 class Player():
 	instances = []
-	def __init__(self, firstname, lastname, birthdate, gender, rank) -> None:
+	def __init__(self, firstname, lastname, birthdate, gender, elo_rank) -> None:
 		self.firstname = firstname
 		self.lastname = lastname
 		self.birthdate = birthdate
 		self.gender = gender
-		self.rank = rank
+		self.elo_rank = elo_rank
 		self.__class__.instances.append(self)
 
 	def updateRank(self, new_rank):
-		self.rank = new_rank
+		self.elo_rank = new_rank
 
 class Tournament():
 	def __init__(self, name, location, description, time_control, date, nb_of_rounds) -> None:
@@ -29,8 +29,9 @@ class Tournament():
 		self.player_list = []
 		self.round_list = []
 
-	def addPlayersToList(self, player1, player2):
-		self.player_list = [player1, player2]
+	def addPlayersToList(self, players):
+		for p in players:
+			self.player_list.append(p)
 
 	def addRoundToList(self, round):
 		self.round_list.append(round)
