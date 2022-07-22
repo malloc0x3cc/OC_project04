@@ -1,9 +1,8 @@
 from tinydb import TinyDB, Query
 
 
-db = TinyDB("db.json")
-
 # TODO: TinyDB implementation
+db = TinyDB("db.json")
 
 class Player():
 	instances = []
@@ -15,6 +14,7 @@ class Player():
 		self.elo_rank = elo_rank
 		self.__class__.instances.append(self)
 
+	# FIXME: Implement the actual math for ELO ranking
 	def updateRank(self, new_rank):
 		self.elo_rank = new_rank
 
