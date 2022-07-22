@@ -2,6 +2,10 @@ from datetime import datetime
 from models import Round
 
 
+# TODO: Swiss algorithm:
+	# [ ]: BubbleSort/InsertionSort by ELO ranks ( Time: O(n), Space: O(1) )
+	# [ ]: pair players by closest ELO
+
 # Rounds
 def createRound(nb):
 	name = f"Round {nb + 1}"

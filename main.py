@@ -3,6 +3,9 @@ from views import *
 import datetime
 
 
+# NOTE: test app
+# TODO: write tests
+
 if __name__ == "__main__":
 	p1 = Player(firstname="John", lastname="Doe", gender="Male", birthdate=datetime.date(1998, 3, 27), rank=1)
 	p2 = Player(firstname="Jane", lastname="Doe", gender="Female", birthdate=datetime.date(2002, 5, 9), rank=2)

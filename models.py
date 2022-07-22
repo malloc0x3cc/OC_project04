@@ -3,6 +3,8 @@ from tinydb import TinyDB, Query
 
 db = TinyDB("db.json")
 
+# TODO: TinyDB implementation
+
 class Player():
 	instances = []
 	def __init__(self, firstname, lastname, birthdate, gender, rank) -> None:
