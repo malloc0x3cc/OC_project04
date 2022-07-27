@@ -14,7 +14,7 @@ class Player():
 		self.elo_rank = elo_rank
 		self.__class__.instances.append(self)
 
-	# FIXME: Implement the actual math for ELO ranking
+	# FIXME: Implement the actual math for ELO ranking: https://fr.wikipedia.org/wiki/Classement_Elo
 	def updateRank(self, new_rank):
 		self.elo_rank = new_rank
 

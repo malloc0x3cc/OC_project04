@@ -8,19 +8,26 @@ def swiss(tournamentPlayerlist):
 		# [x]: Sort all players by ELO ranks
 		# [x]: pair players by closest ELO
 		# [ ]: Check if my pairing would work in the real world
+		# [ ]: Pairing should look at the adjacent values to find the smallest level difference
 
 	# Bubble sort
 	swap = True
+	length = len(tournamentPlayerlist) - 1
 	while (swap):
+		test = []
+		for v in tournamentPlayerlist:
+			test.append(v.elo_rank)
+		print(test)
 		i = 0
 		swap = False
-		while (i < len(tournamentPlayerlist) - 1):
+		while (i < length):
 			if (tournamentPlayerlist[i].elo_rank > tournamentPlayerlist[i + 1].elo_rank):
 				buffer = tournamentPlayerlist[i]
 				tournamentPlayerlist[i] = tournamentPlayerlist[i + 1]
 				tournamentPlayerlist[i + 1] = buffer
 				swap = True
 			i += 1
+		length -= 1
 
 	# Pairing
 	i = 0
