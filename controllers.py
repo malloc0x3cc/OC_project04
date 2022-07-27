@@ -4,20 +4,16 @@ from models import Round
 
 def swiss(tournamentPlayerlist):
 	# FIXME: optimize sort (place biggest value to the end, decrement len of array by 1)
+	# FIXME: Pairing should look at the adjacent values to find the smallest level difference (?)
 	# TODO: Swiss algorithm:
 		# [x]: Sort all players by ELO ranks
 		# [x]: pair players by closest ELO
 		# [ ]: Check if my pairing would work in the real world
-		# [ ]: Pairing should look at the adjacent values to find the smallest level difference
 
 	# Bubble sort
 	swap = True
 	length = len(tournamentPlayerlist) - 1
 	while (swap):
-		test = []
-		for v in tournamentPlayerlist:
-			test.append(v.elo_rank)
-		print(test)
 		i = 0
 		swap = False
 		while (i < length):
