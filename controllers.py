@@ -3,14 +3,7 @@ from models import Round
 
 
 def swiss(tournamentPlayerlist):
-	# FIXME: optimize sort (place biggest value to the end, decrement len of array by 1)
-	# FIXME: Pairing should look at the adjacent values to find the smallest level difference (?)
-	# TODO: Swiss algorithm:
-		# [x]: Sort all players by ELO ranks
-		# [x]: pair players by closest ELO
-		# [ ]: Check if my pairing would work in the real world
-
-	# Bubble sort
+	# Bubblesort
 	swap = True
 	length = len(tournamentPlayerlist) - 1
 	while (swap):
@@ -32,6 +25,7 @@ def swiss(tournamentPlayerlist):
 		pairs.append([tournamentPlayerlist[i], tournamentPlayerlist[i + 1]])
 		i += 2
 
+	print("Players matched !")
 	return(pairs)
 
 # Rounds

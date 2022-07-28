@@ -6,4 +6,4 @@ __pycache__/
 *.pyc
 *.pdf
 db.json
-test.py
+# test.py
