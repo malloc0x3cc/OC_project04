@@ -1,10 +1,6 @@
 from models import *
+from controllers import *
 
-
-# TODO: print infos about players
-# TODO: print infos about tournaments
-# TODO: print infos about matches
-# TODO: print infos about rounds
 
 # Players
 def printPlayerInfos(player):

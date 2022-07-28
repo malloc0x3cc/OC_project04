@@ -25,14 +25,13 @@ def swiss(tournamentPlayerlist):
 		pairs.append([tournamentPlayerlist[i], tournamentPlayerlist[i + 1]])
 		i += 2
 
-	print("Players matched !")
 	return(pairs)
 
 # Rounds
 def createRound(nb):
-	name = f"Round {nb + 1}"
+	nb = f"Round {nb + 1}"
 	start_date = datetime.now()
 	end_date = ""
 
-	r = Round(name, start_date, end_date)
+	r = Round(nb, start_date, end_date)
 	return r

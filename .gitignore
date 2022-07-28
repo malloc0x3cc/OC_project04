@@ -5,5 +5,5 @@ __pycache__/
 *.docx
 *.pyc
 *.pdf
-db.json
+*.json
 # test.py

@@ -1,5 +1,5 @@
 from tinydb import TinyDB, Query
-
+import math
 
 # TODO: TinyDB implementation
 db = TinyDB("db.json")
@@ -19,14 +19,16 @@ class Player():
 		self.elo_rank = new_rank
 
 class Tournament():
-	def __init__(self, name, location, description, time_control, date, nb_of_rounds) -> None:
+	def __init__(self, name, location, players, description, time_control, date) -> None:
 		self.name = name
 		self.location = location
 		self.description = description
 		self.time_control = time_control
 		self.date = date
-		self.nb_of_rounds = nb_of_rounds
-		self.player_list = []
+		self.players = players
+		# NOTE: Because a chess game is 2 players, use logarithm base 2 to figure the amount of rounds to determine a single winner.
+		# FIXME: self.nb_of_rounds = math.ceil(math.log2(len(self.players))) ?
+		self.nb_of_rounds = math.log2(len(self.players))
 		self.round_list = []
 
 	def addPlayersToList(self, players):
@@ -37,7 +39,11 @@ class Tournament():
 		self.round_list.append(round)
 
 class Round():
-	def __init__(self, name, start_date, end_date) -> None:
-		self.name = name
+	def __init__(self, nb, start_date, end_date) -> None:
+		self.nb = nb
 		self.start_date = start_date
 		self.end_date = end_date
+
+class Match():
+	def __init__(self, pair_of_players):
+		self.players = pair_of_players
