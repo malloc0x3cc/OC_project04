@@ -23,7 +23,6 @@ class Tournament():
 		self.date = date
 		# NOTE: Because a chess game is 2 players, use logarithm base 2 to figure the amount of rounds to determine a single winner.
 		self.nb_of_rounds = math.ceil(math.log2(len(Player.instances)))
-		self.round_list = []
 
 	def addRoundToList(self, round):
 		self.round_list.append(round)

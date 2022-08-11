@@ -10,13 +10,13 @@ from tinydb import TinyDB
 
 if __name__ == "__main__":
 	# Database + tables
-	db = TinyDB("db.json")
+	db = TinyDB("db.json", sort_keys=True, indent=4)
 	tournamentTable = db.table("Tounament")
 	playersTable = db.table("Players")
 	roundsTable = db.table("Rounds")
 	matchesTable = db.table("Matches")
 
-	players = [ Player(firstname=Faker().first_name(), lastname=Faker().last_name(), gender=random.choice(["M", "F"]), birthdate=str(Faker().date_of_birth()), elo_rank=0) for p in range(8) ]
+	players = [ Player(firstname=Faker().first_name(), lastname=Faker().last_name(), gender=random.choice(["M", "F"]), birthdate=str(Faker().date_of_birth()), elo_rank=0) for p in range(2) ]
 	tournament = Tournament(name="Unreal Tournament", location="Cupertino, CA", description="A test tournament", date=str(datetime.datetime.now()))
 
 	# Ranking round pairing (all ranks are zero)

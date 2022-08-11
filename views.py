@@ -24,3 +24,7 @@ def printMatchInfos(match):
 def printRoundsInfos(round):
 		print(vars(round))
 
+# Others
+def printMainMenu():
+	choice = input("-- Chess Manager --\n1. Manage tournament\n2. Manage players\n3. Manage rounds\n4. Manage matches\n")
+	# TODO: Switch case
