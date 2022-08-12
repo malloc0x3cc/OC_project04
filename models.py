@@ -3,7 +3,8 @@ import math
 
 class Player():
 	instances = []
-	def __init__(self, firstname, lastname, birthdate, gender, elo_rank) -> None:
+	def __init__(self, id, firstname, lastname, birthdate, gender, elo_rank) -> None:
+		self.id = id
 		self.firstname = firstname
 		self.lastname = lastname
 		self.birthdate = birthdate
@@ -34,8 +35,8 @@ class Round():
 		self.end_date = end_date
 
 class Match():
-	def __init__(self, pair_of_players) -> None:
-		self.players = pair_of_players
+	def __init__(self, paired_players_ids) -> None:
+		self.paired_players_ids = paired_players_ids
 		self.winner = None
 
 	def end(self, winner=None):
