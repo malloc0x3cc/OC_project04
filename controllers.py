@@ -22,7 +22,7 @@ def swiss(playerList):
 	i = 0
 	pairs = []
 	while (i < len(playerList) - 1):
-		pairs.append([playerList[i], playerList[i + 1]])
+		pairs.append([playerList[i].id, playerList[i + 1].id])
 		i += 2
 
 	return(pairs)
