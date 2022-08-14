@@ -14,4 +14,4 @@ La commande permantant de lancer le programme est la suivante:
 ```sh
 python main.py
 ```
-Un menu à été implémenté pour faciliter l'utilisation de l'application.
+Un menu à été implémenté pour faciliter l'utilisation de l'application. `main.py` à été pensé pour etre une solution "clées en main".
