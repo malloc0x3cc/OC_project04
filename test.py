@@ -21,11 +21,11 @@ if __name__ == "__main__":
 	rounds = [ Round(n + 1, str(datetime.datetime.now()), str(datetime.datetime.now()) + str(datetime.timedelta(hours=1))) for n in range(tournament.nb_of_rounds) ]
 	matches = [ Match(paired_players_ids=[_]) for _ in swiss(players) ]
 
-	# Objects to dictionaries
 	players_dict = []
 	rounds_dict = []
 	matches_dict = []
 
+	# Objects to dictionaries
 	for _ in players: players_dict.append(_.__dict__)
 	for _ in rounds: rounds_dict.append(_.__dict__)
 	for _ in matches: matches_dict.append(_.__dict__)
