@@ -1,5 +1,7 @@
 from models import *
 from controllers import *
+# import datetime
+# import main
 
 
 # Players
@@ -16,6 +18,13 @@ def printPlayerList():
 def printTournamentInfos(tournament):
 		print(vars(tournament))
 
+# def createTournament(tournament):
+# 	name = str(input("Name: "))
+# 	loc = str(input("Location: "))
+# 	desc = str(input("Description: "))
+# 	date = str(datetime.datetime.now())
+# 	tournament = Tournament(name=name, location=loc, description=desc, date=date)
+
 # Matches
 def printMatchInfos(match):
 		print(vars(match))
@@ -23,28 +32,3 @@ def printMatchInfos(match):
 # Rounds
 def printRoundsInfos(round):
 		print(vars(round))
-
-# Others
-def printMainMenu(t, p, r, m):
-	choice = int(input("-- Chess Manager --\n1. Manage tournament\n2. Manage players\n3. Manage rounds\n4. Manage matches\n"))
-
-	if choice == 1:
-		choice = int(input("-- Tournament --\n1. Print tournament infos\n"))
-		if choice == 1:
-			printTournamentInfos(t)
-
-	if choice == 2:
-		choice = int(input("-- Player --\n1. Print players infos\n"))
-		if choice == 1:
-			printPlayerInfos(p)
-
-	if choice == 3:
-		choice = int(input("-- Rounds --\n1. Print rounds infos\n"))
-		if choice == 1:
-			printRoundsInfos(r)
-
-	if choice == 4:
-		choice = int(input("-- Matches --\n1. Print matches infos\n"))
-		if choice == 1:
-			printMatchInfos(m)
-	# TODO: Switch case
