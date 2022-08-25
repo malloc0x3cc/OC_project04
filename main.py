@@ -14,6 +14,9 @@ if __name__ == "__main__":
 	roundsTable = db.table("Rounds")
 	matchesTable = db.table("Matches")
 
+	rounds = matches = []
+
+	# Menu
 	print("-- Players --")
 	players = [ Player(id=_, firstname=Faker().first_name(), lastname=Faker().last_name(), gender=random.choice(["M", "F"]), birthdate=str(Faker().date_of_birth()), elo_rank=random.randint(1200, 1400)) for _ in range(8) ]
 	printPlayerList()
@@ -23,12 +26,12 @@ if __name__ == "__main__":
 	printTournamentInfos(tournament)
 
 	print("-- Rounds --")
-	rounds = [ Round(n + 1, str(datetime.datetime.now()), str(datetime.datetime.now()) + str(datetime.timedelta(hours=1))) for n in range(tournament.nb_of_rounds) ]
+	for n in range(tournament.nb_of_rounds):
+		rounds.append(Round(n + 1, str(datetime.datetime.now()), str(datetime.datetime.now()) + str(datetime.timedelta(hours=1))))
+		print("-- Matches --")
+		matches = [ Match(paired_players_ids=[_]) for _ in swiss(players) ]
 
-	print("-- Matches --")
-	matches = [ Match(paired_players_ids=[_]) for _ in swiss(players) ]
-
-	# Objects to dictionaries
+	# Serialization
 	players_dict = []
 	rounds_dict = []
 	matches_dict = []
