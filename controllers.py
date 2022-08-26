@@ -6,11 +6,11 @@ def swiss(playerList):
 	# Bubblesort
 	swap = True
 	length = len(playerList) - 1
-	while (swap):
+	while swap:
 		i = 0
 		swap = False
-		while (i < length):
-			if (playerList[i].elo_rank > playerList[i + 1].elo_rank):
+		while i < length:
+			if playerList[i].elo_rank > playerList[i + 1].elo_rank:
 				buffer = playerList[i]
 				playerList[i] = playerList[i + 1]
 				playerList[i + 1] = buffer
@@ -21,7 +21,7 @@ def swiss(playerList):
 	# Pairing
 	i = 0
 	pairs = []
-	while (i < len(playerList) - 1):
+	while i < (len(playerList) - 1):
 		pairs.append([playerList[i].id, playerList[i + 1].id])
 		i += 2
 

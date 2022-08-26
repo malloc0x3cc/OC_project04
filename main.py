@@ -45,4 +45,3 @@ if __name__ == "__main__":
 	playersTable.insert_multiple(players_dict)
 	roundsTable.insert_multiple(rounds_dict)
 	matchesTable.insert_multiple(matches_dict)
-
