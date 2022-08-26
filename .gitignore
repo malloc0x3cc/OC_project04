@@ -1,5 +1,7 @@
 .env/
+venv/
 docs/
+.idea/
 __pycache__/
 *.odt
 *.docx
