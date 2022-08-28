@@ -23,7 +23,7 @@ if __name__ == "__main__":
             player_id=_,
             firstname=Faker().first_name(),
             lastname=Faker().last_name(),
-            gender=random.choice(["M", "F"]),
+            # gender=random.choice(["M", "F"]),
             birthdate=str(Faker().date_of_birth()),
             elo_rank=random.randint(1200, 1400)) for _ in range(8)
     ]

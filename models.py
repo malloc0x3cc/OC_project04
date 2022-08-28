@@ -4,16 +4,14 @@ import math
 class Player:
     instances = []
 
-    def __init__(self, player_id, firstname, lastname, birthdate, gender, elo_rank) -> None:
+    def __init__(self, player_id, firstname, lastname, birthdate, elo_rank):
         self.id = player_id
         self.firstname = firstname
         self.lastname = lastname
         self.birthdate = birthdate
-        self.gender = gender
         self.elo_rank = elo_rank
         self.__class__.instances.append(self)
 
-    # FIXME: https://fr.wikipedia.org/wiki/Classement_Elo#Th%C3%A9orie_math%C3%A9matique
     def update_rank(self, new_rank):
         self.elo_rank = new_rank
 
@@ -26,7 +24,7 @@ class Tournament:
         self.location = location
         self.description = description
         self.date = date
-        # NOTE: logarithm base 2 to figure the amount of rounds to determine a single winner.
+        # NOTE: logarithm base 2 to figure the amount of rounds.
         self.nb_of_rounds = math.ceil(math.log2(len(Player.instances)))
 
     def add_round_to_list(self, chess_round):
