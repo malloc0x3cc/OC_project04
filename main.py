@@ -21,16 +21,26 @@ if __name__ == "__main__":
 
     # Menu
     print("-- Players --")
-    players = [
-        Player(
-            player_id=_,
-            firstname=Faker().first_name(),
-            lastname=Faker().last_name(),
-            # gender=random.choice(["M", "F"]),
-            birthdate=str(Faker().date_of_birth()),
-            elo_rank=random.randint(1200, 1400)
-        ) for _ in range(2)
-    ]
+    players = []
+    count = 0
+    while True:
+        print_player_list()
+        i = input("1. Add players ? [Y/n]\n")
+        if i.upper() == 'Y':
+            players.append(
+                Player(
+                    player_id=count,
+                    firstname=input("First name: "),
+                    lastname=input("Last name: "),
+                    birthdate=input("Birthday date: "),
+                    elo_rank=int(input("ELO Rank: "))
+                )
+            )
+            count += 1
+        elif i.upper() == 'N':
+            break
+        else:
+            print("USAGE: [Y/n]")
     players_dict = []
     for _ in players:
         players_dict.append(_.__dict__)
@@ -46,6 +56,7 @@ if __name__ == "__main__":
     tournamentTable.insert(tournament.__dict__)
 
     print("-- Rounds --")
+    # TODO: print paricipants for each round
     for n in range(tournament.nb_of_rounds):
         rounds.append(
             Round(
@@ -64,6 +75,8 @@ if __name__ == "__main__":
         print(matches)
 
         for _ in matches:
+            # TODO: print participants for each match
+            # TODO: Get player infos from DB
             print(_.paired_players_ids)
             _.end(int(input("winner: ")))
             for p in players:
