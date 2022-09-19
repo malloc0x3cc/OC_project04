@@ -42,6 +42,3 @@ class Match:
     def __init__(self, paired_players_ids) -> None:
         self.paired_players_ids = paired_players_ids
         self.winner = None
-
-    def end(self, winner=None):
-        self.winner = winner

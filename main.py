@@ -57,6 +57,7 @@ if __name__ == "__main__":
 
     print("-- Rounds --")
     # TODO: print paricipants for each round
+    matches_dict = []
     for n in range(tournament.nb_of_rounds):
         rounds.append(
             Round(
@@ -67,23 +68,21 @@ if __name__ == "__main__":
         )
         print(f"Round {rounds[-1].nb}")
         print("-- Matches --")
-        matches = [
-            Match(paired_players_ids=_) for _ in swiss(players)
-        ]
-        matches_dict = []
-
-        print(matches)
+        matches = [Match(paired_players_ids=_) for _ in swiss(players)]
 
         for _ in matches:
             # TODO: print participants for each match
             # TODO: Get player infos from DB
             print(_.paired_players_ids)
-            _.end(int(input("winner: ")))
-            for p in players:
-                if _.winner == p.id:
-                    players.remove(p)
+            _.winner = int(input("winner: "))
             matches_dict.append(_.__dict__)
-            matchesTable.insert_multiple(matches_dict)
+        pl = players
+        players = []
+        for _ in matches:
+            for p in pl:
+                if _.winner == p.id:
+                    players.append(p)
+    matchesTable.insert_multiple(matches_dict)
 
     rounds_dict = []
     for _ in rounds:
