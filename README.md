@@ -8,7 +8,7 @@ Pour ce projet, il faut écrire une application permettant de gérer un tournois
 Tout d'abbord, il faut s'assurer que `Python 3` et `PIP` sont installés et de préférence à jour sur votre machine.
 Il faudra ensuite installer les dépendences necessaires au script:
 ```sh
-pip install -r requirements.txt
+python3 -m pip install -r requirements.txt
 ```
 La commande permantant de lancer le programme est la suivante:
 ```sh

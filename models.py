@@ -24,8 +24,7 @@ class Tournament:
         self.location = location
         self.description = description
         self.date = date
-        # NOTE: logarithm base 2 to figure the amount of rounds.
-        self.nb_of_rounds = math.ceil(math.log2(len(Player.instances)))
+        self.nb_of_rounds = 0
 
     def add_round_to_list(self, chess_round):
         self.__class__.round_list.append(chess_round)

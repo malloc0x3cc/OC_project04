@@ -1,64 +1,42 @@
+import os
 import datetime
-import random
 from tinydb import TinyDB
-from faker import Faker
 from controllers import swiss
 from views import *
 
 
+FILE = "db.json"
+db = TinyDB(FILE, sort_keys=True, indent=4)
+roundsTable = db.table("Rounds")
+matchesTable = db.table("Matches")
+playersTable = db.table("Players")
+tournamentTable = db.table("Tournament")
+
 if __name__ == "__main__":
-    database_file = "db.json"
-    open(database_file, 'w').close()
-    # TODO: Check if DB already exists
-    db = TinyDB(database_file, sort_keys=True, indent=4)
-    db.clear_cache()
-    tournamentTable = db.table("Tournament")
-    playersTable = db.table("Players")
-    roundsTable = db.table("Rounds")
-    matchesTable = db.table("Matches")
+    os.system('cls' if os.name == 'nt' else 'clear')
+    print("-- Tournament Manager --")
+    while (True):
+        i = int(input("1. Manage Tournament\n2. Manage Players\n3. Launch tournament\n9. Clear Database\n0. Exit\n"))
+        if i == 1:
+            tournament_menu()
+        elif i == 2:
+            players_menu()
+        elif i == 3:
+            break
+        elif i == 9:
+            db.clear_cache()
+            print("Database cleared !")
+        elif i == 0:
+            quit()
+        else:
+            continue
 
     rounds = matches = []
-
-    # Menu
-    print("-- Players --")
-    players = []
-    count = 0
-    while True:
-        print_player_list()
-        i = input("1. Add players ? [Y/n]\n")
-        if i.upper() == 'Y':
-            players.append(
-                Player(
-                    player_id=count,
-                    firstname=input("First name: "),
-                    lastname=input("Last name: "),
-                    birthdate=input("Birthday date: "),
-                    elo_rank=int(input("ELO Rank: "))
-                )
-            )
-            count += 1
-        elif i.upper() == 'N':
-            break
-        else:
-            print("USAGE: [Y/n]")
-    players_dict = []
-    for _ in players:
-        players_dict.append(_.__dict__)
-    playersTable.insert_multiple(players_dict)
-
-    print("-- Tournament --")
-    tournament = Tournament(
-        name=input("Name: "),
-        location=input("Location: "),
-        description=input("Description (optional): "),
-        date=str(datetime.datetime.now())
-    )
-    tournamentTable.insert(tournament.__dict__)
-
     print("-- Rounds --")
     # TODO: print paricipants for each round
     matches_dict = []
-    for n in range(tournament.nb_of_rounds):
+    # NOTE: logarithm base 2 to figure the amount of rounds.
+    for n in range(math.ceil(math.log2(len(Player.instances)))):
         rounds.append(
             Round(
                 n + 1,
