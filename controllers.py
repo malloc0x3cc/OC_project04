@@ -62,7 +62,6 @@ def start_tournament():
     for p in main.playersTable:
         players.append(p)
     print("-- Rounds --")
-    # TODO: print paricipants for each round
     matches_dict = []
     # NOTE: logarithm base 2 to figure the amount of rounds.
     for n in range(math.ceil(math.log2(len(main.playersTable)))):
@@ -73,7 +72,7 @@ def start_tournament():
                 end_date=str(datetime.datetime.now()) + str(datetime.timedelta(hours=1))
             )
         )
-        print(f"Round {rounds[-1].nb}")
+        print(f"Round {rounds[-1].nb}\n{players}")
         print("-- Matches --")
         matches = [Match(paired_players=_) for _ in swiss(players)]
 
