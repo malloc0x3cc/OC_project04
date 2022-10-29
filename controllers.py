@@ -10,7 +10,7 @@ def swiss(player_list):
         i = 0
         swap = False
         while i < length:
-            if player_list[i].elo_rank > player_list[i + 1].elo_rank:
+            if player_list[i]['elo'] > player_list[i + 1]['elo']:
                 buffer = player_list[i]
                 player_list[i] = player_list[i + 1]
                 player_list[i + 1] = buffer
@@ -22,7 +22,7 @@ def swiss(player_list):
     i = 0
     pairs = []
     while i < (len(player_list) - 1):
-        pairs.append([player_list[i].id, player_list[i + 1].id])
+        pairs.append([player_list[i], player_list[i + 1]])
         i += 2
 
     return pairs

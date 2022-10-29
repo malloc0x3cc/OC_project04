@@ -46,7 +46,7 @@ def add_player():
         firstname=input("First name: "),
         lastname=input("Last name: "),
         birthdate=input("Birthday date: "),
-        elo_rank=int(input("ELO Rank: "))
+        elo=int(input("ELO: "))
     )
     main.playersTable.insert(player.__dict__)
 
@@ -86,6 +86,9 @@ def print_tournament_infos():
 
 def start_tournament():
     rounds = matches = []
+    players = []
+    for p in main.playersTable:
+        players.append(p)
     print("-- Rounds --")
     # TODO: print paricipants for each round
     matches_dict = []
@@ -100,19 +103,20 @@ def start_tournament():
         )
         print(f"Round {rounds[-1].nb}")
         print("-- Matches --")
-        matches = [Match(paired_players_ids=_) for _ in controllers.swiss(players)]
+        matches = [Match(paired_players=_) for _ in controllers.swiss(players)]
 
         for _ in matches:
             # TODO: print participants for each match
             # TODO: Get player infos from DB
-            print(_.paired_players_ids)
-            _.winner = int(input("winner: "))
+            for p in enumerate(_.paired_players):
+                print(f"{p[0]}: {p[1]['firstname']} {p[1]['lastname']} ({p[1]['elo']})")
+            _.winner = _.paired_players[int(input("winner: "))]
             matches_dict.append(_.__dict__)
         pl = players
         players = []
         for _ in matches:
             for p in pl:
-                if _.winner == p.id:
+                if _.winner == p:
                     players.append(p)
     main.matchesTable.insert_multiple(matches_dict)
 
