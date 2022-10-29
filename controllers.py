@@ -8,7 +8,6 @@ def add_player():
     player = Player(
         firstname=input("First name: "),
         lastname=input("Last name: "),
-        birthdate=input("Birthday date: "),
         elo=int(input("ELO: "))
     )
     main.playersTable.insert(player.__dict__)
@@ -23,11 +22,6 @@ def create_tournament():
         date=str(datetime.datetime.now())
     )
     main.tournamentTable.insert(tournament.__dict__)
-
-
-# Rounds
-# def create_round(nb):
-#     return Round(f"Round {nb + 1}", datetime.now(), "")
 
 
 def swiss(player_list):
@@ -57,12 +51,11 @@ def swiss(player_list):
 
 
 def start_tournament():
-    rounds = matches = []
+    rounds = []
     players = []
     for p in main.playersTable:
         players.append(p)
     print("-- Rounds --")
-    matches_dict = []
     # NOTE: logarithm base 2 to figure the amount of rounds.
     for n in range(math.ceil(math.log2(len(main.playersTable)))):
         rounds.append(
