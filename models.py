@@ -1,16 +1,8 @@
-import math
-
-
 class Player:
-    instances = []
-
-    def __init__(self, player_id, firstname, lastname, birthdate, elo_rank):
-        self.id = player_id
+    def __init__(self, firstname, lastname, elo_rank):
         self.firstname = firstname
         self.lastname = lastname
-        self.birthdate = birthdate
         self.elo_rank = elo_rank
-        self.__class__.instances.append(self)
 
     def update_rank(self, new_rank):
         self.elo_rank = new_rank
@@ -19,10 +11,9 @@ class Player:
 class Tournament:
     round_list = []
 
-    def __init__(self, name, location, description, date) -> None:
+    def __init__(self, name, location, date) -> None:
         self.name = name
         self.location = location
-        self.description = description
         self.date = date
         self.nb_of_rounds = 0
 
