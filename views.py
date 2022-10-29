@@ -1,17 +1,16 @@
-import math, datetime
-import main, controllers
-from tinydb import Query
+import os, datetime
+import main
 from models import *
 
 
 # Menus
 def tournament_menu():
     while (True):
-        main.CLEAR_SCREEN
         print("-- Tournament --")
         create_delete = "DELETE TOURNAMENT" if len(main.tournamentTable) > 0 else "Create tournament"
         i = int(input(f"1. Tournament infos\n9. {create_delete}\n0. Main Menu\n"))
         if i == 1:
+            clear_screen()
             print_tournament_infos()
         elif i == 9:
             if len(main.tournamentTable) > 0:
@@ -26,10 +25,10 @@ def tournament_menu():
 
 def players_menu():
     while (True):
-        main.CLEAR_SCREEN
         print("-- Players --")
         i = int(input("1. List players\n2. Add player\n9. CLEAR PLAYER LIST\n0. Main Menu\n"))
         if i == 1:
+            clear_screen()
             print_player_list()
         elif i == 2:
             add_player()
@@ -57,10 +56,9 @@ def delete_all_players():
 
 
 def print_player_list():
-    i = 0
-    for p in main.playersTable:
-        i += 1
-        print(f"{i}: {p}")
+
+    for p in enumerate(main.playersTable):
+        print(f"{p[0]}: {p[1]}")
 
 
 # Tournaments
@@ -84,48 +82,6 @@ def print_tournament_infos():
         print(t)
 
 
-def start_tournament():
-    rounds = matches = []
-    players = []
-    for p in main.playersTable:
-        players.append(p)
-    print("-- Rounds --")
-    # TODO: print paricipants for each round
-    matches_dict = []
-    # NOTE: logarithm base 2 to figure the amount of rounds.
-    for n in range(math.ceil(math.log2(len(main.playersTable)))):
-        rounds.append(
-            Round(
-                n + 1,
-                str(datetime.datetime.now()),
-                str(datetime.datetime.now()) + str(datetime.timedelta(hours=1))
-            )
-        )
-        print(f"Round {rounds[-1].nb}")
-        print("-- Matches --")
-        matches = [Match(paired_players=_) for _ in controllers.swiss(players)]
-
-        for _ in matches:
-            # TODO: print participants for each match
-            # TODO: Get player infos from DB
-            for p in enumerate(_.paired_players):
-                print(f"{p[0]}: {p[1]['firstname']} {p[1]['lastname']} ({p[1]['elo']})")
-            _.winner = _.paired_players[int(input("winner: "))]
-            matches_dict.append(_.__dict__)
-        pl = players
-        players = []
-        for _ in matches:
-            for p in pl:
-                if _.winner == p:
-                    players.append(p)
-    main.matchesTable.insert_multiple(matches_dict)
-
-    rounds_dict = []
-    for _ in rounds:
-        rounds_dict.append(_.__dict__)
-    main.roundsTable.insert_multiple(rounds_dict)
-
-
 # Matches
 def print_match_infos(match):
     print(vars(match))
@@ -134,3 +90,8 @@ def print_match_infos(match):
 # Rounds
 def print_rounds_infos(chess_round):
     print(vars(chess_round))
+
+
+# Misc
+def clear_screen():
+    os.system('cls' if os.name == 'nt' else 'clear')
