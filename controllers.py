@@ -3,6 +3,33 @@ import main
 from models import *
 
 
+# Players
+def add_player():
+    player = Player(
+        firstname=input("First name: "),
+        lastname=input("Last name: "),
+        birthdate=input("Birthday date: "),
+        elo=int(input("ELO: "))
+    )
+    main.playersTable.insert(player.__dict__)
+
+
+# Tournaments
+def create_tournament():
+    # TODO: Input date (blank for datetime now)
+    tournament = Tournament(
+        name=input("Name: "),
+        location=input("Location: "),
+        date=str(datetime.datetime.now())
+    )
+    main.tournamentTable.insert(tournament.__dict__)
+
+
+# Rounds
+# def create_round(nb):
+#     return Round(f"Round {nb + 1}", datetime.now(), "")
+
+
 def swiss(player_list):
     # Bubble sort
     swap = True
@@ -29,16 +56,6 @@ def swiss(player_list):
     return pairs
 
 
-# Rounds
-def create_round(nb):
-    nb = f"Round {nb + 1}"
-    start_date = datetime.now()
-    end_date = ""
-
-    r = Round(nb, start_date, end_date)
-    return r
-
-
 def start_tournament():
     rounds = matches = []
     players = []
@@ -51,9 +68,9 @@ def start_tournament():
     for n in range(math.ceil(math.log2(len(main.playersTable)))):
         rounds.append(
             Round(
-                n + 1,
-                str(datetime.datetime.now()),
-                str(datetime.datetime.now()) + str(datetime.timedelta(hours=1))
+                nb=n + 1,
+                start_date=str(datetime.datetime.now()),
+                end_date=str(datetime.datetime.now()) + str(datetime.timedelta(hours=1))
             )
         )
         print(f"Round {rounds[-1].nb}")
@@ -61,21 +78,16 @@ def start_tournament():
         matches = [Match(paired_players=_) for _ in swiss(players)]
 
         for _ in matches:
-            # TODO: print participants for each match
-            # TODO: Get player infos from DB
             for p in enumerate(_.paired_players):
                 print(f"{p[0]}: {p[1]['firstname']} {p[1]['lastname']} ({p[1]['elo']})")
             _.winner = _.paired_players[int(input("winner: "))]
-            matches_dict.append(_.__dict__)
+            main.matchesTable.insert(_.__dict__)
         pl = players
         players = []
         for _ in matches:
             for p in pl:
                 if _.winner == p:
                     players.append(p)
-    main.matchesTable.insert_multiple(matches_dict)
 
-    rounds_dict = []
     for _ in rounds:
-        rounds_dict.append(_.__dict__)
-    main.roundsTable.insert_multiple(rounds_dict)
+        main.roundsTable.insert(_.__dict__)
