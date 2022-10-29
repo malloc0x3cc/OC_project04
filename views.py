@@ -1,84 +1,125 @@
-import os
-import datetime
-import main
+import math, datetime
+import main, controllers
 from tinydb import Query
 from models import *
 
 
-# Players
-def players_menu():
-    os.system('cls' if os.name == 'nt' else 'clear')
-    print("-- Players --")
+# Menus
+def tournament_menu():
     while (True):
-        i = int(input("1. List players\n2. Add players\n0. Main Menu\n"))
+        main.CLEAR_SCREEN
+        print("-- Tournament --")
+        create_delete = "DELETE TOURNAMENT" if len(main.tournamentTable) > 0 else "Create tournament"
+        i = int(input(f"1. Tournament infos\n9. {create_delete}\n0. Main Menu\n"))
         if i == 1:
-            pass
-        elif i == 2:
-            create_players()
+            print_tournament_infos()
+        elif i == 9:
+            if len(main.tournamentTable) > 0:
+                delete_tournament()
+            else:
+                create_tournament()
         elif i == 0:
             return
         else:
             continue
 
 
-def create_players():
-    players = []
-    count = 0
-    while True:
-        print_player_list()
-        i = input("1. Add players ? [Y/n]\n")
-        if i.upper() == 'Y':
-            players.append(
-                Player(
-                    player_id=count,
-                    firstname=input("First name: "),
-                    lastname=input("Last name: "),
-                    birthdate=input("Birthday date: "),
-                    elo_rank=int(input("ELO Rank: "))
-                )
-            )
-            count += 1
-        elif i.upper() == 'N':
-            break
+def players_menu():
+    while (True):
+        main.CLEAR_SCREEN
+        print("-- Players --")
+        i = int(input("1. List players\n2. Add player\n9. CLEAR PLAYER LIST\n0. Main Menu\n"))
+        if i == 1:
+            print_player_list()
+        elif i == 2:
+            add_player()
+        elif i == 9:
+            delete_all_players()
+        elif i == 0:
+            return
         else:
-            print("USAGE: [Y/n]")
-    players_dict = []
-    for _ in players:
-        players_dict.append(_.__dict__)
-    main.playersTable.insert_multiple(players_dict)
+            continue
+
+# Players
+def add_player():
+    player = Player(
+        firstname=input("First name: "),
+        lastname=input("Last name: "),
+        birthdate=input("Birthday date: "),
+        elo_rank=int(input("ELO Rank: "))
+    )
+    main.playersTable.insert(player.__dict__)
+
+
+def delete_all_players():
+    main.playersTable.truncate()
+    print("All players deleted from database")
 
 
 def print_player_list():
-    player_list = []
-    for p in Player.instances:
-        player_list.append(vars(p))
-    print(player_list)
+    i = 0
+    for p in main.playersTable:
+        i += 1
+        print(f"{i}: {p}")
 
 
 # Tournaments
-def tournament_menu():
-    os.system('cls' if os.name == 'nt' else 'clear')
-    print("-- Tournament --")
-    while (True):
-        i = int(input("1. Tournament infos\n2. Create tournament\n0. Main Menu\n"))
-        if i == 1:
-            pass
-        elif i == 2:
-            create_tournament()
-        elif i == 0:
-            return
-        else:
-            continue
-
-
 def create_tournament():
     tournament = Tournament(
         name=input("Name: "),
         location=input("Location: "),
-        description=input("Description (optional): "),
         date=str(datetime.datetime.now())
+        # TODO: Input date (blank for datetime now)
     )
     main.tournamentTable.insert(tournament.__dict__)
+
+
+def delete_tournament():
+    main.tournamentTable.truncate()
+    print("Tournament deleted from database")
+
+
+def print_tournament_infos():
+    for t in main.tournamentTable:
+        print(t)
+
+
+def start_tournament():
+    rounds = matches = []
+    print("-- Rounds --")
+    # TODO: print paricipants for each round
+    matches_dict = []
+    # NOTE: logarithm base 2 to figure the amount of rounds.
+    for n in range(math.ceil(math.log2(len(main.playersTable)))):
+        rounds.append(
+            Round(
+                n + 1,
+                str(datetime.datetime.now()),
+                str(datetime.datetime.now()) + str(datetime.timedelta(hours=1))
+            )
+        )
+        print(f"Round {rounds[-1].nb}")
+        print("-- Matches --")
+        matches = [Match(paired_players_ids=_) for _ in controllers.swiss(players)]
+
+        for _ in matches:
+            # TODO: print participants for each match
+            # TODO: Get player infos from DB
+            print(_.paired_players_ids)
+            _.winner = int(input("winner: "))
+            matches_dict.append(_.__dict__)
+        pl = players
+        players = []
+        for _ in matches:
+            for p in pl:
+                if _.winner == p.id:
+                    players.append(p)
+    main.matchesTable.insert_multiple(matches_dict)
+
+    rounds_dict = []
+    for _ in rounds:
+        rounds_dict.append(_.__dict__)
+    main.roundsTable.insert_multiple(rounds_dict)
 
 
 # Matches

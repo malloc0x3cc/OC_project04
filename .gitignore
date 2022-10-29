@@ -10,3 +10,4 @@ __pycache__/
 db.json
 test.py
 .vscode
+db copy.json
