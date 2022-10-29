@@ -52,10 +52,7 @@ def swiss(player_list):
 
 def start_tournament():
     rounds = []
-    players = []
-    for p in main.playersTable:
-        players.append(p)
-    print("-- Rounds --")
+    players = [p for p in main.playersTable]
     # NOTE: logarithm base 2 to figure the amount of rounds.
     for n in range(math.ceil(math.log2(len(main.playersTable)))):
         rounds.append(
@@ -65,21 +62,22 @@ def start_tournament():
                 end_date=str(datetime.datetime.now()) + str(datetime.timedelta(hours=1))
             )
         )
-        print(f"Round {rounds[-1].nb}\n{players}")
-        print("-- Matches --")
+        print(f"-- Round {rounds[-1].nb} --\n{players}")
+
         matches = [Match(paired_players=_) for _ in swiss(players)]
-
-        for _ in matches:
-            for p in enumerate(_.paired_players):
-                print(f"{p[0]}: {p[1]['firstname']} {p[1]['lastname']} ({p[1]['elo']})")
-            _.winner = _.paired_players[int(input("winner: "))]
-            main.matchesTable.insert(_.__dict__)
-        pl = players
         players = []
-        for _ in matches:
-            for p in pl:
-                if _.winner == p:
-                    players.append(p)
 
-    for _ in rounds:
-        main.roundsTable.insert(_.__dict__)
+        for match in matches:
+            for p in enumerate(match.paired_players):
+                print(f"{p[0]}: {p[1]['firstname']} {p[1]['lastname']} ({p[1]['elo']})")
+            match.winner = match.paired_players[int(input("winner: "))]
+
+            players.append(match.winner)
+            main.matchesTable.insert(match.__dict__)
+
+        print(f"Winners for Round {rounds[-1].nb}:")
+        for player in players:
+            print(f"{player['firstname']} {player['lastname']} ({player['elo']})")
+
+    for round in rounds:
+        main.roundsTable.insert(round.__dict__)

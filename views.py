@@ -44,7 +44,7 @@ def players_menu():
         i = int(input("1. List players\n2. Add player\n9. CLEAR PLAYER LIST\n0. Main Menu\n"))
         if i == 1:
             clear_screen()
-            print_player_list()
+            print_all_players()
         elif i == 2:
             controllers.add_player()
         elif i == 9:
@@ -60,7 +60,7 @@ def delete_all_players():
     print("All players deleted from database")
 
 
-def print_player_list():
+def print_all_players():
     for p in enumerate(main.playersTable):
         print(f"{p[0]}: {p[1]}")
 
