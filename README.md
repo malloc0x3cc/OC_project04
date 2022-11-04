@@ -6,6 +6,12 @@ Pour ce projet, il faut écrire une application permettant de gérer un tournois
 
 ## Usage
 Tout d'abbord, il faut s'assurer que `Python 3` et `PIP` sont installés et de préférence à jour sur votre machine.
+
+Il est possible de créer/activer un environnement virtuel avec `venv`:
+```sh
+$ python3 -m venv env
+$ source env/bin/activate
+```
 Il faudra ensuite installer les dépendences necessaires au script:
 ```sh
 $ python3 -m pip install -r requirements.txt
@@ -21,3 +27,5 @@ Pour executer `flake8-html` uniquement sur le code source, la commande suivante 
 $ python3 -m flake8 --format=html --htmldir=flake-report/ ./*.py
 ```
 Le rapport `flake8` sera généré dans le dossier `flake-report/`
+
+NOTE: `flake8-html` ayant des soucis de compatibilité avec `flake8` à partir de la version `5.0.0`, il est cloné pour ce projet d'un [fork](https://github.com/skadyan/flake8-html) contenant un fix permettant de l'utiliser.
