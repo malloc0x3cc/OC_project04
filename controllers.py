@@ -1,11 +1,12 @@
-import math, datetime
+import math
+import datetime
 import main
-from models import *
+import models
 
 
 # Players
 def add_player():
-    player = Player(
+    player = models.Player(
         firstname=input("First name: "),
         lastname=input("Last name: "),
         elo=int(input("ELO: "))
@@ -16,7 +17,7 @@ def add_player():
 # Tournaments
 def create_tournament():
     # TODO: Input date (blank for datetime now)
-    tournament = Tournament(
+    tournament = models.Tournament(
         name=input("Name: "),
         location=input("Location: "),
         date=str(datetime.datetime.now())
@@ -56,20 +57,21 @@ def start_tournament():
     # NOTE: logarithm base 2 to figure the amount of rounds.
     for n in range(math.ceil(math.log2(len(main.playersTable)))):
         rounds.append(
-            Round(
+            models.Round(
                 nb=n + 1,
                 start_date=str(datetime.datetime.now()),
-                end_date=str(datetime.datetime.now()) + str(datetime.timedelta(hours=1))
+                end_date=str(datetime.datetime.now())
+                + str(datetime.timedelta(hours=1))
             )
         )
         print(f"-- Round {rounds[-1].nb} --\n{players}")
 
-        matches = [Match(paired_players=_) for _ in swiss(players)]
+        matches = [models.Match(paired_players=_) for _ in swiss(players)]
         players = []
 
         for match in matches:
             for p in enumerate(match.paired_players):
-                print(f"{p[0]}: {p[1]['firstname']} {p[1]['lastname']} ({p[1]['elo']})")
+                print(f"{p[0]}: {p[1]['firstname']} {p[1]['lastname']}")
             match.winner = match.paired_players[int(input("winner: "))]
 
             players.append(match.winner)
@@ -77,7 +79,7 @@ def start_tournament():
 
         print(f"Winners for Round {rounds[-1].nb}:")
         for player in players:
-            print(f"{player['firstname']} {player['lastname']} ({player['elo']})")
+            print(f"{player['firstname']} {player['lastname']}")
 
     for round in rounds:
         main.roundsTable.insert(round.__dict__)

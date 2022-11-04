@@ -1,5 +1,6 @@
-import os, datetime
-import main, controllers
+import os
+import main
+import controllers
 
 
 # Misc
@@ -11,8 +12,15 @@ def clear_screen():
 def tournament_menu():
     while (True):
         print("-- Tournament --")
-        create_delete = "DELETE TOURNAMENT" if len(main.tournamentTable) > 0 else "Create tournament"
-        i = int(input(f"1. Tournament infos\n9. {create_delete}\n0. Main Menu\n"))
+        if len(main.tournamentTable) > 0:
+            create_delete = "DELETE TOURNAMENT"
+        else:
+            create_delete = "Create tournament"
+        i = int(input(
+            "1. Tournament infos\n"
+            + f"9. {create_delete}\n"
+            + "0. Main Menu\n"
+        ))
         if i == 1:
             clear_screen()
             print_tournament_infos()
@@ -41,7 +49,12 @@ def print_tournament_infos():
 def players_menu():
     while (True):
         print("-- Players --")
-        i = int(input("1. List players\n2. Add player\n9. CLEAR PLAYER LIST\n0. Main Menu\n"))
+        i = int(input(
+            "1. List players\n"
+            + "2. Add player\n"
+            + "9. CLEAR PLAYER LIST\n"
+            + "0. Main Menu\n"
+        ))
         if i == 1:
             clear_screen()
             print_all_players()

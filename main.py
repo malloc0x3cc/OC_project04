@@ -1,6 +1,6 @@
-import os
 from tinydb import TinyDB
-import views, controllers
+import views
+import controllers
 
 
 FILE = "db.json"
@@ -14,7 +14,12 @@ tournamentTable = db.table("Tournament")
 if __name__ == "__main__":
     while (True):
         print("-- Tournament Manager --")
-        i = int(input("1. Manage Tournament\n2. Manage Players\n3. Launch tournament\n0. Exit\n"))
+        i = int(input(
+            "1. Manage Tournament\n"
+            + "2. Manage Players\n"
+            + "3. Launch tournament\n"
+            + "0. Exit\n"
+        ))
         views.clear_screen()
         if i == 1:
             views.tournament_menu()

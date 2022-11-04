@@ -1,2 +1,2 @@
 tinydb
-flake8-html
+git+https://github.com/skadyan/flake8-html.git
