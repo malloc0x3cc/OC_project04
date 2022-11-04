@@ -11,3 +11,4 @@ db.json
 test.py
 .vscode
 db copy.json
+flake-report
