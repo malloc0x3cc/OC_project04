@@ -15,18 +15,21 @@ if __name__ == "__main__":
     while (True):
         print("-- Tournament Manager --")
         i = int(input(
-            "1. Manage Tournament\n"
-            + "2. Manage Players\n"
-            + "3. Launch tournament\n"
+            "1. Launch Tournament\n"
+            + "2. Manage Tournament\n"
+            + "3. Manage Players\n"
             + "0. Exit\n"
         ))
         views.clear_screen()
         if i == 1:
-            views.tournament_menu()
+            if len(tournamentTable) > 0:
+                controllers.start_tournament()
+            else:
+                print("You have to create a tournament first...")
         elif i == 2:
-            views.players_menu()
+            views.tournament_menu()
         elif i == 3:
-            controllers.start_tournament()
+            views.players_menu()
         elif i == 0:
             quit()
         else:

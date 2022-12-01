@@ -13,18 +13,15 @@ def tournament_menu():
     while (True):
         print("-- Tournament --")
         if len(main.tournamentTable) > 0:
+            print_tournament_infos()
             create_delete = "DELETE TOURNAMENT"
         else:
             create_delete = "Create tournament"
         i = int(input(
-            "1. Tournament infos\n"
-            + f"9. {create_delete}\n"
+            f"1. {create_delete}\n"
             + "0. Main Menu\n"
         ))
         if i == 1:
-            clear_screen()
-            print_tournament_infos()
-        elif i == 9:
             if len(main.tournamentTable) > 0:
                 delete_tournament()
             else:
@@ -46,29 +43,27 @@ def print_tournament_infos():
 
 
 # Players
+# TODO: add specific player deletion
 def players_menu():
     while (True):
         print("-- Players --")
+        print_all_players()
         i = int(input(
-            "1. List players\n"
-            + "2. Add player\n"
+            "1. Add player\n"
             + "9. CLEAR PLAYER LIST\n"
             + "0. Main Menu\n"
         ))
         if i == 1:
-            clear_screen()
-            print_all_players()
-        elif i == 2:
             controllers.add_player()
         elif i == 9:
-            delete_all_players()
+            clear_player_list()
         elif i == 0:
             return
         else:
             continue
 
 
-def delete_all_players():
+def clear_player_list():
     main.playersTable.truncate()
     print("All players deleted from database")
 
